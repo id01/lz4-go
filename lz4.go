@@ -14,7 +14,7 @@ import (
 
 func LZ4_compressFrame(in []byte) (outArr []byte, err error) {
 	out := make([]byte, (len(in)<<1)+128)
-	n := C.LZ4F_compressFrame(unsafe.Pointer(in), C.ulong(len(in)), unsafe.Pointer(out), C.ulong(len(out)), nil)
+	n := C.LZ4F_compressFrame(unsafe.Pointer(&in[0]), C.ulong(len(in)), unsafe.Pointer(out), C.ulong(len(out)), nil)
 	if n <= 0 {
 		return out, errors.New("Compression error")
 	}
